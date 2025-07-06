@@ -9,13 +9,13 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="w-full border-b border-grayish-blue">
-      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between h-20">
-        {/* Left side */}
-        <div className="flex items-center gap-4">
-          {/* Mobile menu button */}
+    <header className="w-full border-b border-light-grayish-blue">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 md:px-8 h-20 md:h-24">
+        {/* Left section */}
+        <div className="flex items-center gap-6 md:gap-10">
+          {/* Mobile menu toggle */}
           <button
-            className="sm:hidden"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -23,35 +23,33 @@ export default function Header() {
           </button>
 
           {/* Logo */}
-          <img src={logo} alt="Logo" className="w-28" />
+          <img src={logo} alt="Logo" className="w-32 md:w-36" />
 
-          {/* Desktop nav */}
-          <nav className="hidden sm:flex gap-6 ml-8 text-dark-grayish-blue">
-            <a href="#" className="hover:text-very-dark-blue">
-              Collections
-            </a>
-            <a href="#" className="hover:text-very-dark-blue">
-              Men
-            </a>
-            <a href="#" className="hover:text-very-dark-blue">
-              Women
-            </a>
-            <a href="#" className="hover:text-very-dark-blue">
-              About
-            </a>
-            <a href="#" className="hover:text-very-dark-blue">
-              Contact
-            </a>
+          {/* Desktop navigation */}
+          <nav className="hidden md:flex gap-8 text-dark-grayish-blue text-base font-medium">
+            {['Collections', 'Men', 'Women', 'About', 'Contact'].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="relative group hover:text-very-dark-blue transition-colors"
+              >
+                {link}
+                <span className="absolute bottom-[-1.2rem] left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+              </a>
+            ))}
           </nav>
         </div>
 
-        {/* Right side */}
-        <div className="flex items-center gap-6">
+        {/* Right section */}
+        <div className="flex items-center gap-6 md:gap-8">
           {/* Cart */}
-          <button className="relative">
-            <img src={iconCart} alt="Cart" className="w-5 h-5" />
-            {/* Example: Cart badge */}
-            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full px-1">
+          <button className="relative group" aria-label="View cart">
+            <img
+              src={iconCart}
+              alt="Cart"
+              className="w-6 h-6 group-hover:opacity-70 transition"
+            />
+            <span className="absolute -top-2 -right-2 bg-primary text-white text-xs font-bold rounded-full px-1.5">
               3
             </span>
           </button>
@@ -60,28 +58,37 @@ export default function Header() {
           <img
             src={avatar}
             alt="User avatar"
-            className="w-8 h-8 rounded-full border-2 border-transparent hover:border-primary cursor-pointer"
+            className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-transparent hover:border-primary cursor-pointer transition"
           />
         </div>
       </div>
 
-      {/* Mobile nav */}
+      {/* Mobile navigation */}
       {isMenuOpen && (
-        <div className="sm:hidden fixed inset-0 bg-black-overlay z-50">
-          <div className="bg-white w-64 h-full p-6 fade-in">
+        <div className="md:hidden fixed inset-0 bg-black-overlay z-50">
+          <div className="bg-white w-64 h-full p-6 fade-in flex flex-col">
+            {/* Close button */}
             <button
-              className="mb-8"
+              className="mb-8 flex justify-start"
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close menu"
             >
               <img src={iconClose} alt="Close" className="w-5 h-5" />
             </button>
-            <nav className="flex flex-col gap-4 text-very-dark-blue font-bold">
-              <a href="#">Collections</a>
-              <a href="#">Men</a>
-              <a href="#">Women</a>
-              <a href="#">About</a>
-              <a href="#">Contact</a>
+
+            {/* Links */}
+            <nav className="flex flex-col gap-6 text-very-dark-blue font-bold text-lg">
+              {['Collections', 'Men', 'Women', 'About', 'Contact'].map(
+                (link) => (
+                  <a
+                    key={link}
+                    href="#"
+                    className="hover:text-primary block transition-colors"
+                  >
+                    {link}
+                  </a>
+                )
+              )}
             </nav>
           </div>
         </div>

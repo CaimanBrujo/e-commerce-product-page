@@ -5,10 +5,13 @@ import React from 'react'
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-text">
-      <Header />
-      <Main />
-      <Footer />
+    <div className="w-full min-h-screen flex flex-col items-center bg-white">
+      {/* Global wrapper */}
+      <div className="max-w-[1440px] mx-auto w-full px-4 sm:px-8 flex flex-col flex-1">
+        <Header />
+        <Main />
+        <Footer />
+      </div>
     </div>
   )
 }
