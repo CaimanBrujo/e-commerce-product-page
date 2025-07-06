@@ -16,7 +16,7 @@ export default function Header() {
           {/* Mobile menu toggle */}
           <button
             className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsMenuOpen(true)}
             aria-label="Toggle menu"
           >
             <img src={iconMenu} alt="Menu" className="w-5 h-5" />
@@ -64,35 +64,44 @@ export default function Header() {
       </div>
 
       {/* Mobile navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black-overlay z-50">
-          <div className="bg-white w-64 h-full p-6 fade-in flex flex-col">
-            {/* Close button */}
-            <button
-              className="mb-8 flex justify-start"
-              onClick={() => setIsMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <img src={iconClose} alt="Close" className="w-5 h-5" />
-            </button>
+      {/* Overlay */}
+      <div
+        className={`fixed inset-0 bg-black-overlay transition-opacity duration-300 ${
+          isMenuOpen
+            ? 'opacity-50 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        } z-40`}
+        onClick={() => setIsMenuOpen(false)}
+      />
 
-            {/* Links */}
-            <nav className="flex flex-col gap-6 text-very-dark-blue font-bold text-lg">
-              {['Collections', 'Men', 'Women', 'About', 'Contact'].map(
-                (link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    className="hover:text-primary block transition-colors"
-                  >
-                    {link}
-                  </a>
-                )
-              )}
-            </nav>
-          </div>
-        </div>
-      )}
+      {/* Sliding menu */}
+      <div
+        className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 transform transition-transform duration-300 ${
+          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Close button */}
+        <button
+          className="m-6"
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <img src={iconClose} alt="Close" className="w-5 h-5" />
+        </button>
+
+        {/* Links */}
+        <nav className="flex flex-col gap-6 text-very-dark-blue font-bold text-lg px-6">
+          {['Collections', 'Men', 'Women', 'About', 'Contact'].map((link) => (
+            <a
+              key={link}
+              href="#"
+              className="hover:text-primary block transition-colors"
+            >
+              {link}
+            </a>
+          ))}
+        </nav>
+      </div>
     </header>
   )
 }
